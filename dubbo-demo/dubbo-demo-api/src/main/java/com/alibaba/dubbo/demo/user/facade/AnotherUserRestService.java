@@ -1,22 +1,9 @@
-/**
- * Copyright 1999-2014 dangdang.com.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.alibaba.dubbo.demo.user.facade;
 
 import com.alibaba.dubbo.demo.user.User;
+import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 
+import javax.validation.constraints.Min;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,12 +17,12 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("u")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
-@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
+@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
 public interface AnotherUserRestService {
 
     @GET
     @Path("{id : \\d+}")
-    User getUser(@PathParam("id") Long id);
+    User getUser(@PathParam("id") @Min(1L) Long id);
 
     @POST
     @Path("register")
